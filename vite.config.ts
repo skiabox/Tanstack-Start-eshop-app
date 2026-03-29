@@ -27,6 +27,13 @@ const config = defineConfig({
       presets: [reactCompilerPreset()],
     }),
   ],
+  ssr: {
+    noExternal: [],
+    external: ["pg", "pg-native"],
+  },
+  optimizeDeps: {
+    exclude: ["pg", "pg-native"],
+  },
 });
 
 export default config;
