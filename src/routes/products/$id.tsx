@@ -8,7 +8,6 @@ import {
   CardTitle,
 } from "#/components/ui/card";
 import { Skeleton } from "#/components/ui/skeleton";
-import type { ProductSelect } from "#/db/schema";
 import { Button } from "@/components/ui/button";
 import { useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, Link, notFound, useRouter } from "@tanstack/react-router";
@@ -40,15 +39,10 @@ export const Route = createFileRoute("/products/$id")({
     }
     // Return recommendedProducts as a Promise for Suspense
     const recommendedProducts = fetchRecommendedProducts();
-    console.log("product", product);
     return { product, recommendedProducts };
   },
-  head: async ({ loaderData: data }) => {
-    const { product } = data as {
-      product: ProductSelect;
-      recommendedProducts: Promise<ProductSelect[]>;
-    };
-    console.log("product in head", product);
+  head: ({ loaderData: data }) => {
+    const product = data?.product;
     if (!product) {
       return {};
     }
