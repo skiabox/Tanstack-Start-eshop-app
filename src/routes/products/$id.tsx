@@ -52,6 +52,8 @@ export const Route = createFileRoute("/products/$id")({
     if (!product) {
       return {};
     }
+    const siteUrl = (process.env.PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, "");
+
     return {
       meta: [
         { name: "description", content: product?.description },
@@ -59,11 +61,7 @@ export const Route = createFileRoute("/products/$id")({
         { name: "title", content: product?.name },
         {
           name: "canonical",
-          content:
-            process.env.NODE_ENV === "production"
-              ? `https://stackshop-prod.appwrite.network/products/${product?.id}`
-              : `http://localhost:3000/products/${product?.id}` ||
-                `localhost:3000/products/${product?.id}`,
+          content: `${siteUrl}/products/${product.id}`,
         },
         {
           title: product?.name,

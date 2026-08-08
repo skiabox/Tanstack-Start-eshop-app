@@ -17,6 +17,7 @@ const config = defineConfig({
     tsconfigPaths: true,
   },
   lint: { options: { typeAware: true, typeCheck: true } },
+  fmt: { ignorePatterns: ["src/routeTree.gen.ts"] },
   plugins: [
     devtools(),
     nitro({ rolldownConfig: { external: [/^@sentry\//] } }),
